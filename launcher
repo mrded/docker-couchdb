@@ -1,0 +1,22 @@
+#!/bin/bash
+
+case "$1" in
+"build")
+  docker build -t couchdb .
+  mkdir -p /opt/couchdb/data
+  ;;
+"start")
+  docker run -p 5984:5984 -d -v /opt/couchdb/data:/opt/couchdb/data --name couchdb couchdb
+  ;;
+"stop")
+  docker stop couchdb
+  ;;
+"cleanup")
+  docker rm $(docker ps -a -q)
+  docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
+  ;;
+*)
+    echo 'Usage: ./launcher [build | start | stop | cleanup]'
+    ;;
+esac
+
