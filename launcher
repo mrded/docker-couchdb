@@ -6,7 +6,7 @@ case "$1" in
   mkdir -p /opt/couchdb/data
   ;;
 "start")
-  docker run -p 5984:5984 -d -v /opt/couchdb/data:/opt/couchdb/data --name couchdb couchdb
+  docker run -p 80:5984 -d -v /opt/couchdb/data:/opt/couchdb/data --name couchdb couchdb
   ;;
 "stop")
   docker stop couchdb
